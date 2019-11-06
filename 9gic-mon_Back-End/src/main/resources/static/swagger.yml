@@ -72,7 +72,7 @@ paths:
         200:
           description: "success to verify user"
           schema:
-            $ref: '#/definitions/SigninResponse'
+            $ref: '#/definitions/SignupResponse'
         400:
           description: "Invalid value"
         500:
@@ -406,27 +406,22 @@ definitions:
   SignupParam:
     type: "object"
     required:
-      - coUser_email
-      - coUser_password1
-      - coUser_password2
-      - coUser_copname
-      - coUser_tell
+      - coUserEmail
+      - coUserPassword
+      - coUserCopname
+      - coUserTell
     properties:
-      coUser_email:
+      coUserEmail:
         type: "string"
         description: co_user's name
-      coUser_password1:
+      coUserPassword1:
         type: "string"
         format: "password"
         description: minlength 8, AlphanumericPassword
-      coUser_password2:
-        type: "string"
-        format: "password"
-        description: check if same as password1
-      coUser_copname:
+      coUserCopname:
         type: "string"
         description: company name of co_user
-      coUser_tell:
+      coUserTell:
         type: "int"
         description: co_user's phone number
   SignupResponse:
@@ -439,13 +434,13 @@ definitions:
   SigninParam:
     type: "object"
     required:
-      - coUser_id
-      - coUser_password
+      - coUserEmail
+      - coUserPassword
     properties:
-      coUser_id:
+      coUserEmail:
         type: "string"
         description: user id, minlength 6
-      coUser_password:
+      coUserPassword:
         type: "string"
         format: "password"
         description: minlength 8, AlphanumericPassword
