@@ -1,6 +1,6 @@
-package gugicmon.gugic.serverice.auth;
+package gugicmon.gugic.service.auth;
 
-import gugicmon.gugic.entity.Co_User;
+import gugicmon.gugic.domain.entity.Co_User;
 import gugicmon.gugic.repository.Co_UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
