@@ -1,21 +1,23 @@
-package gugicmon.gugic.serverice.auth;
+package gugicmon.gugic.service.token;
 
-import gugicmon.gugic.entity.Co_User;
 import gugicmon.gugic.exception.InvalidJwtAuthenticationException;
+import gugicmon.gugic.service.auth.Co_Token;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Co_Token {
-    private String token;
+@Service
+public class TokenServiceImpl implements TokenService {
 
-    public String createCoToken(String id) {
+    @Override
+    public Co_Token createCoToken(String id) {
         String key = Base64.getEncoder().encodeToString("key".getBytes());
 
         Map<String, Object> headers = new HashMap<>();
@@ -30,13 +32,14 @@ public class Co_Token {
         payloads.put("exp", now);
         payloads.put("data", id);
 
-        return Jwts.builder()
+        return new Co_Token(Jwts.builder()
                 .setHeader(headers)
                 .setClaims(payloads)
                 .signWith(SignatureAlgorithm.HS256, key.getBytes())
-                .compact();
+                .compact());
     }
 
+    @Override
     public String verifyToken(String token) {
         String key = Base64.getEncoder().encodeToString(Base64.getEncoder().encodeToString("key".getBytes()).getBytes());
         JwtParser jwtParser = Jwts.parser();
@@ -55,18 +58,4 @@ public class Co_Token {
         }
     }
 
-    public Co_Token(Co_User co_user) {
-        token = this.createCoToken(co_user.coUserEmail);
-    }
-
-    public Co_Token() {
-
-    }
-
-    public Map<Object, Object> getTokenResponse() {
-        Map<Object, Object> model = new HashMap<>();
-        model.put("token", this.token);
-
-        return model;
-    }
 }
