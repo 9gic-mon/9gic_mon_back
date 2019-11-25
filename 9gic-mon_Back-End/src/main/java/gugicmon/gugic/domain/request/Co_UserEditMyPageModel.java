@@ -1,29 +1,15 @@
-package gugicmon.gugic.domain.entity;
-
+package gugicmon.gugic.domain.request;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.UUID;
+public class Co_UserEditMyPageModel {
 
-public class Co_UserEditMypage {
-
-    private String coUserID;
-    private String coUserEmail;
-    private String coUserPassword;
-    private String coUserCopname;
-    private String coUserTell;
-    private String coUserDescription;
-    private String coUserImageUrl;
-
-    public Co_UserEditMypage() {}
-
-    public String getCoUserID() {
-        return coUserID;
-    }
-
-    public void setCoUserID(String coUserID) {
-        this.coUserID = coUserID;
-    }
+    String coUserEmail;
+    String coUserPassword;
+    String coUserCopname;
+    String coUserTell;
+    String coUserDescription;
+    MultipartFile coUserImageFile;
 
     public String getCoUserEmail() {
         return coUserEmail;
@@ -65,15 +51,14 @@ public class Co_UserEditMypage {
         this.coUserDescription = coUserDescription;
     }
 
-    public String getCoUserImageUrl() {
-        return coUserImageUrl;
+    public MultipartFile getCoUserImageFile() {
+        return coUserImageFile;
     }
 
-    public void setCoUserImageUrl(String coUserImageUrl) {
-        this.coUserImageUrl = coUserImageUrl;
+    public void setCoUserImageFile(MultipartFile coUserImageFile) {
+        this.coUserImageFile = coUserImageFile;
     }
 
-    public Co_User toCo_User() {
-        return new Co_User(coUserID,coUserPassword, coUserEmail, coUserCopname, coUserTell, coUserDescription, coUserImageUrl);
-    }
+
+
 }

@@ -1,12 +1,14 @@
 package gugicmon.gugic.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.CustomLog;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,12 +17,18 @@ import javax.validation.constraints.Null;
 public class Co_User {
 
     @Id
-    @Column(name = "co_user_email")
+    @JsonIgnore
+    @Column(name = "co_user_id")
+    public String coUserId = UUID.randomUUID().toString();
+
+    @Column(name = "co_user_email", unique = true)
     public String coUserEmail;
 
     @Column(name = "co_user_password", nullable = false)
     String coUserPassword;
 
+//    @OneToOne(mappedBy = "co_user_post_copname", cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY)
     @Column(name = "co_user_copname")
     String coUserCopname;
 
@@ -30,20 +38,31 @@ public class Co_User {
     @Column(name = "co_user_description")
     String coUserDescription;
 
+//    @OneToOne(mappedBy = "co_user_image_url", cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY)
     @Column(name = "co_user_image_url")
     String coUserImageUrl;
 
 
     public Co_User() {}
 
-    public Co_User(String coUserPassword, String coUserEmail, String coUserCopname, String coUserTell, String coUserDescription, String coUserImageUrl)
+    public Co_User(String coUserId, String coUserPassword, String coUserEmail, String coUserCopname, String coUserTell, String coUserDescription, String coUserImageUrl)
     {
+        this.coUserId = coUserId;
         this.coUserPassword = coUserPassword;
         this.coUserEmail = coUserEmail;
         this.coUserCopname = coUserCopname;
         this.coUserTell = coUserTell;
         this.coUserDescription = coUserDescription;
         this.coUserImageUrl = coUserImageUrl;
+    }
+
+    public String getCoUserId() {
+        return coUserId;
+    }
+
+    public void setCoUserId(String coUserId) {
+        this.coUserId = coUserId;
     }
 
     public String getCoUserEmail() {

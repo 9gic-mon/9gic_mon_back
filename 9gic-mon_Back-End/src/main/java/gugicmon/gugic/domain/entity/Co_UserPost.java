@@ -1,7 +1,8 @@
 package gugicmon.gugic.domain.entity;
 
-/*
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.extern.apachecommons.CommonsLog;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ public class Co_UserPost {
     @Id
     @Column(name = "idx")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @json
+    @JsonIgnore
     public Long idx;
 
     @Column(name = "title")
@@ -25,12 +26,14 @@ public class Co_UserPost {
     @Column(name = "dead_line")
     Date deadLine;
 
-    @OneToOne
-    @JoinColumn(name = "co_user_post_copname", referencedColumnName = "co_user_copname")
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "co_user_post_copname", referencedColumnName = "co_user_copname")
+    @Column(name = "co_user_post_copname")
     String coUserPostCopname;
 
-    @OneToOne
-    @JoinColumn(name = "co_user_imageurl", referencedColumnName = "co_user_post_imageurl")
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "co_user_image_url", referencedColumnName = "co_user_post_imageurl")
+    @Column(name = "co_user_post_image_url")
     String coUserPostImageUrl;
 
     @Column(name = "simple_intro")
@@ -52,4 +55,3 @@ public class Co_UserPost {
     String etc;
 
 }
-*/
