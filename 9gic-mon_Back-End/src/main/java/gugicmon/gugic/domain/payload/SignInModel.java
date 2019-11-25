@@ -1,5 +1,7 @@
 package gugicmon.gugic.domain.payload;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import gugicmon.gugic.domain.entity.Co_User;
 import lombok.Getter;
 import lombok.Setter;
 
