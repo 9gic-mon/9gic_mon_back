@@ -12,14 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Id;
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.ResponseEntity.ok;
 
 
 @RestController
-@RequestMapping("/9gic/Co_users")
+@RequestMapping("/9gic/users")
 public class Co_UserController {
+    Co_User user;
 
     @Autowired
     private TokenService tokenService;
@@ -37,7 +40,8 @@ public class Co_UserController {
     @RequestMapping(method = RequestMethod.POST, path = "/signin")
     public ResponseEntity<Co_Token> signIn(@RequestBody SignInModel signIn)
     {
-        Co_User user = co_userRepository.findByCoUserEmail(signIn.getCoUserEmail());
+        user = co_userRepository.findByCoUserEmail(signIn.getCoUserEmail()).get(0);
+        System.out.println(co_userRepository.findByCoUserId(signIn.getCoUserEmail()));
         System.out.println("들어옴");
         if (user == null) {
             System.out.println("아이디가없음");
@@ -49,7 +53,7 @@ public class Co_UserController {
             System.out.println("성공");
             return ok(tokenService.createCoToken(signIn.getCoUserEmail()));
         } else {
-            System.out.println("권한없음");
+            System.out.println("중복됨");
             throw new ForbiddenException();
         }
     }
@@ -58,7 +62,7 @@ public class Co_UserController {
     @RequestMapping(method = RequestMethod.POST, path = "/signup")
     public ResponseEntity<Void> signUp(@RequestBody Co_User co_user) {
         Optional<Co_User> optionalCo_user = co_userRepository.findById(co_user.getCoUserEmail());
-        System.out.println("들어옴");
+
         if (optionalCo_user.isPresent()){
             throw new AlreadyExistException("Account Already Exist");
         } else {
