@@ -1,8 +1,8 @@
 package gugicmon.gugic.service.storage;
 
+import gugicmon.gugic.exception.NotFoundException;
 import gugicmon.gugic.domain.payload.StorageProperties;
 import gugicmon.gugic.exception.StorageException;
-import gugicmon.gugic.exception.StorageFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -20,15 +20,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
+
 @Service
 public class StorageServiceImpl implements StorageService {
-
-    private final Path rootLocation;
-
-    @Autowired
-    public StorageServiceImpl(StorageProperties properties) {
-        this.rootLocation = Paths.get(properties.getLocation());
-    }
 
     @Override
     public void store(MultipartFile file) {
@@ -44,7 +38,7 @@ public class StorageServiceImpl implements StorageService {
                                 + filename);
             }
             try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, this.rootLocation.resolve(filename),
+                Files.copy(inputStream, Paths.get("src/main/resources/static/").resolve(filename),
                         StandardCopyOption.REPLACE_EXISTING);
             }
         }
@@ -56,9 +50,9 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public Stream<Path> loadAll() {
         try {
-            return Files.walk(this.rootLocation, 1)
-                    .filter(path -> !path.equals(this.rootLocation))
-                    .map(this.rootLocation::relativize);
+            return Files.walk(Paths.get("upload-dir"), 1)
+                    .filter(path -> !path.equals(Paths.get("upload-dir")))
+                    .map(Paths.get("upload-dir")::relativize);
         }
         catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
@@ -68,7 +62,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public Path load(String filename) {
-        return rootLocation.resolve(filename);
+        return Paths.get("upload-dir").resolve(filename);
     }
 
     @Override
@@ -80,25 +74,25 @@ public class StorageServiceImpl implements StorageService {
                 return resource;
             }
             else {
-                throw new StorageFileNotFoundException(
+                throw new NotFoundException(
                         "Could not read file: " + filename);
 
             }
         }
         catch (MalformedURLException e) {
-            throw new StorageFileNotFoundException("Could not read file: " + filename, e);
+            throw new NotFoundException("Could not read file: " + filename);
         }
     }
 
     @Override
     public void deleteAll() {
-        FileSystemUtils.deleteRecursively(rootLocation.toFile());
+        FileSystemUtils.deleteRecursively(Paths.get("upload-dir").toFile());
     }
 
     @Override
     public void init() {
         try {
-            Files.createDirectories(rootLocation);
+            Files.createDirectories(Paths.get("upload-dir"));
         }
         catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
