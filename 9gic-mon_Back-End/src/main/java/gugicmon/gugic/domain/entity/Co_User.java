@@ -38,13 +38,45 @@ public class Co_User {
     @Column(name = "co_user_description")
     String coUserDescription;
 
-//    @OneToOne(mappedBy = "co_user_image_url", cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY)
     @Column(name = "co_user_image_url")
     String coUserImageUrl;
 
+    @Column(name = "co_user_establish")
+    String coUserEstablish;
+
+    @Column(name = "co_user_member")
+    String coUserMember;
+
+    @Column(name = "co_user_capital")
+    String coUserCapital;
+
+    @Column(name = "co_user_address")
+    String coUserAddress;
+
+    @Column(name = "co_user_military")
+    String coUserMilitary;
+
+    @Column(name = "co_user_place")
+    String coUserPlace;
+
 
     public Co_User() {}
+
+    public Co_User(String coUserId, String coUserEmail, String coUserPassword, String coUserCopname, String coUserTell, String coUserDescription, String coUserImageUrl, String coUserEstablish, String coUserMember, String coUserCapital, String coUserAddress, String coUserMilitary, String coUserPlace) {
+        this.coUserId = coUserId;
+        this.coUserEmail = coUserEmail;
+        this.coUserPassword = coUserPassword;
+        this.coUserCopname = coUserCopname;
+        this.coUserTell = coUserTell;
+        this.coUserDescription = coUserDescription;
+        this.coUserImageUrl = coUserImageUrl;
+        this.coUserEstablish = coUserEstablish;
+        this.coUserMember = coUserMember;
+        this.coUserCapital = coUserCapital;
+        this.coUserAddress = coUserAddress;
+        this.coUserMilitary = coUserMilitary;
+        this.coUserPlace = coUserPlace;
+    }
 
     public Co_User(String coUserId, String coUserPassword, String coUserEmail, String coUserCopname, String coUserTell, String coUserDescription, String coUserImageUrl)
     {
@@ -111,5 +143,53 @@ public class Co_User {
 
     public void setCoUserImageUrl(String coUserImageUrl) {
         this.coUserImageUrl = coUserImageUrl;
+    }
+
+    public String getCoUserEstablish() {
+        return coUserEstablish;
+    }
+
+    public void setCoUserEstablish(String coUserEstablish) {
+        this.coUserEstablish = coUserEstablish;
+    }
+
+    public String getCoUserMember() {
+        return coUserMember;
+    }
+
+    public void setCoUserMember(String coUserMember) {
+        this.coUserMember = coUserMember;
+    }
+
+    public String getCoUserCapital() {
+        return coUserCapital;
+    }
+
+    public void setCoUserCapital(String coUserCapital) {
+        this.coUserCapital = coUserCapital;
+    }
+
+    public String getCoUserAddress() {
+        return coUserAddress;
+    }
+
+    public void setCoUserAddress(String coUserAddress) {
+        this.coUserAddress = coUserAddress;
+    }
+
+    public String isCoUserMilitary() {
+        return coUserMilitary;
+    }
+
+    public void setCoUserMilitary(String coUserMilitary) {
+        this.coUserMilitary = coUserMilitary;
+    }
+
+    public String getCoUserPlace() {
+        return coUserPlace;
+    }
+
+    public void setCoUserPlace(String coUserPlace) {
+        this.coUserPlace = coUserPlace;
     }
 }
