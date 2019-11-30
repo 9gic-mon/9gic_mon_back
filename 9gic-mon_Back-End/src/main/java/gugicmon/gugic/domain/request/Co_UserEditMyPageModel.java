@@ -10,6 +10,12 @@ public class Co_UserEditMyPageModel {
     String coUserTell;
     String coUserDescription;
     MultipartFile coUserImageFile;
+    String coUserEstablish;
+    String coUserMember;
+    String coUserCapital;
+    String coUserAddress;
+    String coUserMilitary;
+    String coUserPlace;
 
     public String getCoUserEmail() {
         return coUserEmail;
@@ -59,6 +65,51 @@ public class Co_UserEditMyPageModel {
         this.coUserImageFile = coUserImageFile;
     }
 
+    public String getCoUserEstablish() {
+        return coUserEstablish;
+    }
 
+    public void setCoUserEstablish(String coUserEstablish) {
+        this.coUserEstablish = coUserEstablish;
+    }
 
+    public String getCoUserMember() {
+        return coUserMember;
+    }
+
+    public void setCoUserMember(String coUserMember) {
+        this.coUserMember = coUserMember;
+    }
+
+    public String getCoUserCapital() {
+        return coUserCapital;
+    }
+
+    public void setCoUserCapital(String coUserCapital) {
+        this.coUserCapital = coUserCapital;
+    }
+
+    public String getCoUserAddress() {
+        return coUserAddress;
+    }
+
+    public void setCoUserAddress(String coUserAddress) {
+        this.coUserAddress = coUserAddress;
+    }
+
+    public String getCoUserMilitary() {
+        return coUserMilitary;
+    }
+
+    public void setCoUserMilitary(String coUserMilitary) {
+        this.coUserMilitary = coUserMilitary;
+    }
+
+    public String getCoUserPlace() {
+        return coUserPlace;
+    }
+
+    public void setCoUserPlace(String coUserPlace) {
+        this.coUserPlace = coUserPlace;
+    }
 }
