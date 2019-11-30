@@ -1,30 +1,23 @@
 package gugicmon.gugic.controller;
 
 import gugicmon.gugic.domain.entity.Co_User;
-import gugicmon.gugic.domain.entity.Co_UserEditMypage;
 import gugicmon.gugic.domain.request.Co_UserEditMyPageModel;
-import gugicmon.gugic.exception.AlreadyExistException;
 import gugicmon.gugic.exception.NotFoundException;
 import gugicmon.gugic.repository.Co_UserRepository;
-import gugicmon.gugic.service.auth.AuthService;
 import gugicmon.gugic.service.storage.StorageServiceImpl;
 import gugicmon.gugic.service.token.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
 
-import java.util.Optional;
-
 
 @RestController
 public class Co_UserMyController {
-    Co_User co_user;
+    private String path = "http://10.156.145.140:8080/static/";
 
     @Autowired
     TokenService tokenService;
@@ -39,7 +32,6 @@ public class Co_UserMyController {
     @PostMapping(path = "/9gic/users/myPage/edit", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
         public ResponseEntity<Void> editMyPage(
                 @RequestHeader("Authorization") String auth,
-                /*@RequestBody Co_UserEditMypage co_userEditMypage*/
                 @ModelAttribute Co_UserEditMyPageModel co_usereditmypagemodel) {
 
         String id = auth.replace("Bearer ", "");
@@ -54,7 +46,13 @@ public class Co_UserMyController {
             optionalCo_user.setCoUserCopname(co_usereditmypagemodel.getCoUserCopname());
             optionalCo_user.setCoUserTell(co_usereditmypagemodel.getCoUserTell());
             optionalCo_user.setCoUserDescription(co_usereditmypagemodel.getCoUserDescription());
-            optionalCo_user.setCoUserImageUrl("http://10.156.145.140:8080/9gic/users/myPage/image/get" + co_usereditmypagemodel.getCoUserImageFile().getOriginalFilename());
+            optionalCo_user.setCoUserImageUrl(path + co_usereditmypagemodel.getCoUserImageFile().getOriginalFilename());
+            optionalCo_user.setCoUserEstablish(co_usereditmypagemodel.getCoUserEstablish());
+            optionalCo_user.setCoUserMember(co_usereditmypagemodel.getCoUserMember());
+            optionalCo_user.setCoUserCapital(co_usereditmypagemodel.getCoUserCapital());
+            optionalCo_user.setCoUserAddress(co_usereditmypagemodel.getCoUserAddress());
+            optionalCo_user.setCoUserMilitary(co_usereditmypagemodel.getCoUserMilitary());
+            optionalCo_user.setCoUserPlace(co_usereditmypagemodel.getCoUserPlace());
 
             co_userRepository.save(optionalCo_user);
             System.out.println("수정완료");
@@ -80,7 +78,7 @@ public class Co_UserMyController {
 
         if (optionalCo_user!=null){
             Co_User user = optionalCo_user;
-            user.setCoUserImageUrl("http://10.156.145.140:8080/9gic/users/myPage/image/get/" + imageFile.getOriginalFilename());
+            user.setCoUserImageUrl(path + imageFile.getOriginalFilename());
             co_userRepository.save(user);
             System.out.println("있음");
             return ResponseEntity.ok().body(optionalCo_user);
